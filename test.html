@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AXON | Architecting the Future</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "on-primary-container": "#f8f7ff",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e3",
+                        "on-tertiary-container": "#e3fdff",
+                        "surface-dim": "#131314",
+                        "surface-container-low": "#1c1b1c",
+                        "on-secondary": "#2b3137",
+                        "on-primary-fixed": "#001849",
+                        "background": "#131314",
+                        "tertiary-fixed-dim": "#00dbe9",
+                        "surface-container-highest": "#353436",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "surface-tint": "#b3c5ff",
+                        "secondary": "#c1c7cf",
+                        "primary-fixed": "#dae1ff",
+                        "inverse-primary": "#0054d6",
+                        "on-secondary-fixed-variant": "#41474e",
+                        "on-surface-variant": "#c2c6d8",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed": "#161c22",
+                        "inverse-on-surface": "#313031",
+                        "on-surface": "#e5e2e3",
+                        "surface-container-lowest": "#0e0e0f",
+                        "primary-container": "#0066ff",
+                        "inverse-surface": "#e5e2e3",
+                        "on-secondary-container": "#afb6bd",
+                        "outline": "#8c90a1",
+                        "outline-variant": "#424656",
+                        "surface-bright": "#3a393a",
+                        "surface-container-high": "#2a2a2b",
+                        "secondary-container": "#41474e",
+                        "on-tertiary": "#00363a",
+                        "primary": "#b3c5ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container": "#201f20",
+                        "surface": "#131314",
+                        "tertiary": "#00dbe9",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#dde3eb",
+                        "on-tertiary-fixed": "#002022",
+                        "on-error-container": "#ffdad6",
+                        "on-primary": "#002b75",
+                        "tertiary-fixed": "#7df4ff",
+                        "tertiary-container": "#007e86",
+                        "secondary-fixed-dim": "#c1c7cf",
+                        "surface-variant": "#353436"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "unit": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Space Grotesk"],
+                        "body-lg": ["Manrope"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-md": ["Manrope"],
+                        "h1": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h3": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "h1": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "h2": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .inset-glow {
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .ambient-glow {
+            box-shadow: 0 0 30px rgba(0, 102, 255, 0.15);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-white">
+    <!-- TopAppBar -->
+    <header
+        class="bg-slate-950/70 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-blue-500/20 shadow-[0_0_20px_rgba(0,102,255,0.15)] h-20">
+        <div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-full">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-600 dark:text-blue-500 text-3xl"
+                    data-icon="architecture">architecture</span>
+                <span
+                    class="text-2xl font-black tracking-widest text-white dark:text-slate-100 font-['Space_Grotesk'] uppercase">AXON</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-blue-500 border-b-2 border-blue-500 pb-1 font-['Space_Grotesk'] tracking-tighter uppercase"
+                    href="#">Home</a>
+                <a class="text-slate-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase"
+                    href="#">Services</a>
+                <a class="text-slate-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase"
+                    href="#">Portfolio</a>
+                <a class="text-slate-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tighter uppercase"
+                    href="#">Contact</a>
+            </nav> 
+            <a href="https://calendly.com/smitlabquetta/30min">
+            <button
+                class="bg-primary-container text-on-primary-container font-label-caps px-6 py-3 rounded-DEFAULT hover:bg-blue-500/90 transition-all scale-95 active:scale-90 duration-200 inset-glow">
+                BUILD NOW
+            </button>
+            </a>
+        </div>
+    </header>
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative min-h-[795px] flex items-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img alt="Future Skyscraper" class="w-full h-full object-cover opacity-40 mix-blend-luminosity"
+                    data-alt="futuristic architectural render of a glass and steel skyscraper with glowing blue lights at twilight, cinematic lighting, sharp detail"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZbOc5nT-KA99Ttt5pHlzIjGaoX-IlxIb7R-clGMYEkXQbpMSC3R_dIEUgLgKPrN34tJR_-XZJVxY5SsSiaOywjoYiD9LrDCVUE98IscFtXTBTcPiKpOOdCCLwpQG9khoO8MIPWFQ2ikqgzlZALBdOaadzYs7_EWPVmkGOUAt1bW1wUfSgnLyVeZDKKygE7qmzppvdBcu9kJwkUVGoWh5t4Pesu6YpiU24Co5fJnduzUNxo1Zl8HVSNiGgJjJ8G1ttauDv344UkXE" />
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-background to-transparent"></div>
+            </div>
+            <div class="container max-w-7xl mx-auto px-8 relative z-10">
+                <div class="max-w-3xl">
+                    <span class="font-label-caps text-primary tracking-[0.4em] mb-6 block">EST. 2024 — GLOBAL
+                        ARCHITECTURE</span>
+                    <h1 class="font-h1 text-h1 text-white mb-8 leading-none">ARCHITECTING <br /><span
+                            class="text-blue-500 text-glow">TOMORROW</span></h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-12">
+                        Precision engineering meets digital agility. We build the physical infrastructure for the
+                        world's most ambitious developers.
+                    </p>
+                    <div class="flex flex-wrap gap-6">
+                        <button
+                            class="bg-primary-container text-on-primary-container font-label-caps px-10 py-5 rounded-DEFAULT text-lg flex items-center gap-3 transition-all hover:translate-y-[-2px] inset-glow ambient-glow">
+                            EXPLORE PROJECTS
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+                        </button>
+                        <button
+                            class="glass-card text-white font-label-caps px-10 py-5 rounded-DEFAULT text-lg flex items-center gap-3 transition-all hover:bg-white/5">
+                            VIEW SERVICES
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-12 right-8 hidden lg:block">
+                <div class="glass-card p-6 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full border border-primary/50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary"
+                            data-icon="precision_manufacturing">precision_manufacturing</span>
+                    </div>
+                    <div>
+                        <p class="font-label-caps text-on-surface-variant">BIM COMPLIANCE</p>
+                        <p class="font-h3 text-xl text-white">100% DIGITAL</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services Section -->
+        <section class="py-32 bg-surface-container-lowest">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div>
+                        <span class="font-label-caps text-primary tracking-widest mb-4 block">OUR EXPERTISE</span>
+                        <h2 class="font-h2 text-h2 text-white">CORE SPECIALTIES</h2>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant max-w-md">
+                        Merging high-end aesthetics with industrial structural integrity to deliver spaces that last
+                        centuries.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Smart Residential -->
+                    <div
+                        class="group relative p-1 rounded-xl bg-gradient-to-br from-white/10 to-transparent transition-all hover:scale-[1.02] duration-300">
+                        <div class="bg-surface-container h-full p-10 rounded-[calc(0.75rem-1px)] flex flex-col gap-8">
+                            <span class="material-symbols-outlined text-5xl text-primary"
+                                data-icon="home_work">home_work</span>
+                            <div>
+                                <h3 class="font-h3 text-white mb-4">Smart Residential</h3>
+                                <p class="font-body-md text-on-surface-variant">AI-integrated living environments
+                                    designed for the next generation of urban dwellers.</p>
+                            </div>
+                            <div
+                                class="mt-auto pt-8 border-t border-white/5 group-hover:border-primary/20 transition-colors">
+                                <span class="font-label-caps text-primary">LEARN MORE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Eco-Industrial -->
+                    <div
+                        class="group relative p-1 rounded-xl bg-gradient-to-br from-white/10 to-transparent transition-all hover:scale-[1.02] duration-300">
+                        <div class="bg-surface-container h-full p-10 rounded-[calc(0.75rem-1px)] flex flex-col gap-8">
+                            <span class="material-symbols-outlined text-5xl text-tertiary" data-icon="eco">eco</span>
+                            <div>
+                                <h3 class="font-h3 text-white mb-4">Eco-Industrial</h3>
+                                <p class="font-body-md text-on-surface-variant">Carbon-neutral manufacturing hubs
+                                    utilizing sustainable steel and solar-glass shells.</p>
+                            </div>
+                            <div
+                                class="mt-auto pt-8 border-t border-white/5 group-hover:border-tertiary/20 transition-colors">
+                                <span class="font-label-caps text-tertiary">LEARN MORE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Urban Commercial -->
+                    <div
+                        class="group relative p-1 rounded-xl bg-gradient-to-br from-white/10 to-transparent transition-all hover:scale-[1.02] duration-300">
+                        <div class="bg-surface-container h-full p-10 rounded-[calc(0.75rem-1px)] flex flex-col gap-8">
+                            <span class="material-symbols-outlined text-5xl text-primary-container"
+                                data-icon="business_center">business_center</span>
+                            <div>
+                                <h3 class="font-h3 text-white mb-4">Urban Commercial</h3>
+                                <p class="font-body-md text-on-surface-variant">High-density corporate towers featuring
+                                    fluid structural lattices and modular interiors.</p>
+                            </div>
+                            <div
+                                class="mt-auto pt-8 border-t border-white/5 group-hover:border-primary-container/20 transition-colors">
+                                <span class="font-label-caps text-primary-container">LEARN MORE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Video Demo Section -->
+        <section class="py-32">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="relative rounded-3xl overflow-hidden aspect-video group">
+                    <img alt="Construction Drone Tour" class="w-full h-full object-cover"
+                        data-alt="cinematic wide shot of a modern construction site at dawn with cranes and concrete structures, dust particles in sunbeams, high resolution"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx3Ir2JJWYhZtDyFDpR0D7YU9EE5vkHgu0XRjzFYgOca4N2e3H5k_SdAZEikffzSh2Pw4Fz9T5BUNVu1xDwwyCJb4QfHOilcTpaWsBrYO9gKMzuJdZrZNs1ROsTThC1z3Kjk1Xl1yC8XSUJL94p3sKzaikQJ8UR7h1E3pLZsydBDTjAfnqDYpAd1SeB4Snr0HXlymLIa0FA_kxo8XqT_rwvhDJ1SuC93w1Z9l8WZvo4sPMAPvsKkP6NQnZhadUJC4gkeT3gwyXFO8" />
+                    <div class="absolute inset-0 bg-slate-950/40 flex items-center justify-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all group-hover:scale-110 group-hover:bg-blue-500 group-hover:border-blue-400">
+                            <span class="material-symbols-outlined text-white text-5xl" data-icon="play_arrow"
+                                style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-8 left-8">
+                        <span class="font-label-caps bg-blue-600 px-4 py-2 rounded-full text-white">LIVE FEED: SITE
+                            04-B</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+                    <div class="border-l border-blue-500/50 pl-6">
+                        <h4 class="font-h3 text-2xl text-white">420k</h4>
+                        <p class="font-label-caps text-on-surface-variant">SQ FT COMPLETED</p>
+                    </div>
+                    <div class="border-l border-blue-500/50 pl-6">
+                        <h4 class="font-h3 text-2xl text-white">12</h4>
+                        <p class="font-label-caps text-on-surface-variant">ACTIVE CRANES</p>
+                    </div>
+                    <div class="border-l border-blue-500/50 pl-6">
+                        <h4 class="font-h3 text-2xl text-white">ZERO</h4>
+                        <p class="font-label-caps text-on-surface-variant">INCIDENT RATE</p>
+                    </div>
+                    <div class="border-l border-blue-500/50 pl-6">
+                        <h4 class="font-h3 text-2xl text-white">98%</h4>
+                        <p class="font-label-caps text-on-surface-variant">WASTE RECYCLED</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials -->
+        <section class="py-32 bg-surface-container-low">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-20">
+                    <span class="font-label-caps text-primary tracking-widest mb-4 block">CLIENT VOICES</span>
+                    <h2 class="font-h2 text-h2 text-white">PARTNER PERSPECTIVES</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card p-10 rounded-2xl flex flex-col gap-6 relative">
+                        <span
+                            class="material-symbols-outlined text-primary-fixed-dim opacity-30 text-6xl absolute top-8 right-8"
+                            data-icon="format_quote">format_quote</span>
+                        <div class="flex gap-1 text-primary">
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                        </div>
+                        <p class="font-body-lg text-white italic">"AXON didn't just build our headquarters; they
+                            realized a vision we didn't think was technically possible. Their BIM integration is
+                            flawless."</p>
+                        <div class="mt-4">
+                            <p class="font-h3 text-lg text-white">Marcus Thorne</p>
+                            <p class="font-label-caps text-on-surface-variant">CEO, NEO-VEST REALTY</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="glass-card p-10 rounded-2xl flex flex-col gap-6 relative">
+                        <span
+                            class="material-symbols-outlined text-primary-fixed-dim opacity-30 text-6xl absolute top-8 right-8"
+                            data-icon="format_quote">format_quote</span>
+                        <div class="flex gap-1 text-primary">
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                        </div>
+                        <p class="font-body-lg text-white italic">"The speed of execution combined with their
+                            sustainability protocols makes AXON the only choice for modern urban development."</p>
+                        <div class="mt-4">
+                            <p class="font-h3 text-lg text-white">Elena Rodriguez</p>
+                            <p class="font-label-caps text-on-surface-variant">VP OF OPERATIONS, ECO-HABITAT</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="glass-card p-10 rounded-2xl flex flex-col gap-6 relative">
+                        <span
+                            class="material-symbols-outlined text-primary-fixed-dim opacity-30 text-6xl absolute top-8 right-8"
+                            data-icon="format_quote">format_quote</span>
+                        <div class="flex gap-1 text-primary">
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="material-symbols-outlined text-sm" data-icon="star"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                        </div>
+                        <p class="font-body-lg text-white italic">"Future-proof architecture. Their team handles
+                            complexity with a level of digital precision that is rare in the traditional construction
+                            world."</p>
+                        <div class="mt-4">
+                            <p class="font-h3 text-lg text-white">David Chen</p>
+                            <p class="font-label-caps text-on-surface-variant">DIRECTOR, ATLAS DEVELOPMENT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section -->
+        <section class="py-32 relative overflow-hidden">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 blur-[120px] rounded-full">
+            </div>
+            <div class="max-w-7xl mx-auto px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    <div>
+                        <span class="font-label-caps text-primary tracking-widest mb-4 block">GET IN TOUCH</span>
+                        <h2 class="font-h2 text-h2 text-white mb-8">READY TO <br />BUILD THE FUTURE?</h2>
+                        <p class="font-body-lg text-on-surface-variant mb-12">
+                            Our team of architects and engineers is ready to discuss your next project. Let's create
+                            something unshakeable.
+                        </p>
+                        <div class="flex flex-col gap-6">
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary" data-icon="mail">mail</span>
+                                <span class="text-white">PROJECTS@AXON.COM</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary"
+                                    data-icon="location_on">location_on</span>
+                                <span class="text-white">44 ARCHITECT PLAZA, NEW YORK, NY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-high p-10 rounded-2xl border border-white/5 shadow-2xl">
+                        <form class="flex flex-col gap-6" action="https://formsubmit.co/smitlabquetta@gmail.com" method="POST">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-label-caps text-on-surface-variant">NAME</label>
+                                    <input name="name"
+                                        class="bg-background border-none rounded-lg p-4 text-white focus:ring-1 focus:ring-primary-container"
+                                        placeholder="Your Name" type="text" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-label-caps text-on-surface-variant">EMAIL</label>
+                                    <input name="email"
+                                        class="bg-background border-none rounded-lg p-4 text-white focus:ring-1 focus:ring-primary-container"
+                                        placeholder="Email Address" type="email" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-caps text-on-surface-variant">PROJECT TYPE</label>
+                                <select 
+                                name="Type"
+                                    class="bg-background border-none rounded-lg p-4 text-white focus:ring-1 focus:ring-primary-container appearance-none">
+                                    <option>Smart Residential</option>
+                                    <option>Eco-Industrial</option>
+                                    <option>Urban Commercial</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-caps text-on-surface-variant">MESSAGE</label>
+                                <textarea 
+                                name="Message"
+                                    class="bg-background border-none rounded-lg p-4 text-white focus:ring-1 focus:ring-primary-container"
+                                    placeholder="Tell us about your project..." rows="4"></textarea>
+                            </div>
+                            <button
+                                class="bg-primary-container text-on-primary-container font-label-caps py-5 rounded-lg transition-all hover:bg-blue-500 ambient-glow inset-glow">
+                                SEND INQUIRY
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-white/5 pt-16 pb-8">
+        <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <span class="text-lg font-bold text-white font-['Space_Grotesk'] uppercase tracking-widest">AXON</span>
+                <p class="text-slate-500 font-['Space_Grotesk'] text-sm uppercase tracking-widest">© 2024 AXON
+                    CONSTRUCTION. ARCHITECTING THE FUTURE.</p>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-slate-500 hover:text-blue-400 transition-colors font-['Space_Grotesk'] text-sm uppercase tracking-widest"
+                    href="#">Services</a>
+                <a class="text-slate-500 hover:text-blue-400 transition-colors font-['Space_Grotesk'] text-sm uppercase tracking-widest"
+                    href="#">Technology</a>
+                <a class="text-slate-500 hover:text-blue-400 transition-colors font-['Space_Grotesk'] text-sm uppercase tracking-widest"
+                    href="#">Portfolio</a>
+                <a class="text-slate-500 hover:text-blue-400 transition-colors font-['Space_Grotesk'] text-sm uppercase tracking-widest"
+                    href="#">Contact</a>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-8 mt-12 border-t border-slate-900 pt-8 flex justify-center md:justify-end gap-6">
+            <a class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-blue-400 hover:border-blue-400/30 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-sm" data-icon="language">language</span>
+            </a>
+            <a class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-blue-400 hover:border-blue-400/30 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-sm" data-icon="hub">hub</span>
+            </a>
+        </div>
+    </footer>
+
+
+
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/smitlabquetta/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+<!-- Calendly badge widget end -->
+
+
+</body>
+
+</html>
